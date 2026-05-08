@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: {{ page_bg }};
+    font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 20px;
+  }
+  .post-card {
+    width: {{ layout.width }}px;
+    box-sizing: border-box;
+    background: {{ palette.bg }};
+    color: {{ palette.text }};
+    {% if show_border %}border: 1px solid {{ palette.border }};{% endif %}
+    border-radius: 16px;
+    padding: {{ layout.padding or 16 }}px;
+    font-size: {{ (14 * layout.font_scale) | round(2) }}px;
+  }
+  .header { display: flex; align-items: center; gap: 8px; }
+  .sub-icon { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .sub-meta { display: flex; flex-direction: column; }
+  .subreddit { font-weight: 700; font-size: {{ (13 * layout.font_scale) | round(2) }}px; }
+  .author { color: {{ palette.subtext }}; font-size: {{ (12 * layout.font_scale) | round(2) }}px; }
+  .menu { margin-left: auto; color: {{ palette.subtext }}; }
+  .title {
+    font-size: {{ (18 * layout.font_scale) | round(2) }}px;
+    font-weight: 600;
+    margin: 12px 0 8px;
+    line-height: 1.25;
+  }
+  .flair {
+    display: inline-block;
+    padding: 3px 10px;
+    background: {{ flair_bg }};
+    color: {{ flair_text }};
+    border-radius: 12px;
+    font-size: {{ (11 * layout.font_scale) | round(2) }}px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .body {
+    margin: 8px 0 12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.45;
+  }
+  .image-wrap { margin: 8px 0 12px; border-radius: 12px; overflow: hidden; }
+  .image-wrap img { display: block; width: 100%; height: auto; }
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: {{ palette.subtext }};
+    font-size: {{ (12 * layout.font_scale) | round(2) }}px;
+  }
+  .vote-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: {{ palette.flair_bg }};
+    border-radius: 999px;
+    padding: 6px 12px;
+    color: {{ palette.text }};
+    font-weight: 700;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: {{ palette.flair_bg }};
+    border-radius: 999px;
+    padding: 6px 10px;
+  }
+</style>
+</head>
+<body>
+<div class="post-card">
+  <div class="header">
+    <img class="sub-icon" src="{{ sub_icon_uri }}" alt="">
+    <div class="sub-meta">
+      <span class="subreddit">{{ post.subreddit }}</span>
+      <span class="author">u/{{ post.account.handle }}{% if post.timestamp %} · {{ post.timestamp }}{% endif %}</span>
+    </div>
+    <div class="menu">{{ icon('overflow', 18, palette.icon) | safe }}</div>
+  </div>
+
+  <div class="title">{{ post.title }}</div>
+  {% if post.flair %}<span class="flair">{{ post.flair }}</span>{% endif %}
+
+  {% if post.body %}<div class="body">{{ post.body }}</div>{% endif %}
+
+  {% if post.image_url %}
+  <div class="image-wrap"><img src="{{ post.image_url }}" alt=""></div>
+  {% endif %}
+
+  <div class="actions">
+    <span class="vote-pill">
+      {{ icon('upvote_filled', 16, palette.upvote) | safe }}
+      <span>{{ post.upvotes | humannum }}</span>
+      {{ icon('downvote_outline', 16, palette.icon) | safe }}
+    </span>
+    <span class="pill">
+      {{ icon('comment', 16, palette.icon) | safe }}
+      <span>{{ post.comments | humannum }}</span>
+    </span>
+    <span class="pill">{{ icon('award', 16, palette.icon) | safe }}</span>
+    <span class="pill">{{ icon('share', 16, palette.icon) | safe }}<span>Share</span></span>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+.comment {
+  margin-top: 10px;
+}
+.comment-row {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+.comment-line {
+  width: 2px;
+  background: {{ palette.border }};
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+.comment-col {
+  flex: 1;
+  min-width: 0;
+}
+.comment-children {
+  margin-top: 4px;
+}
+.comment-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: {{ (12 * layout.font_scale) | round(2) }}px;
+  color: {{ palette.subtext }};
+  margin-bottom: 4px;
+}
+.comment-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.comment-author {
+  font-weight: 700;
+  color: {{ palette.text }};
+}
+.op-badge {
+  background: #0079d3;
+  color: #ffffff;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: {{ (10 * layout.font_scale) | round(2) }}px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.comment-time, .comment-edited {
+  color: {{ palette.subtext }};
+  font-size: {{ (12 * layout.font_scale) | round(2) }}px;
+}
+.comment-body {
+  color: {{ palette.text }};
+  font-size: {{ (14 * layout.font_scale) | round(2) }}px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 4px 0 6px;
+}
+.comment-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: {{ palette.subtext }};
+  font-size: {{ (12 * layout.font_scale) | round(2) }}px;
+}
+.comment-vote {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: {{ palette.flair_bg }};
+  border-radius: 999px;
+  padding: 4px 10px;
+  color: {{ palette.text }};
+  font-weight: 700;
+}
+.comment-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.continue-thread {
+  font-size: {{ (12 * layout.font_scale) | round(2) }}px;
+  color: #0079d3;
+  font-weight: 500;
+  margin-top: 6px;
+}
+/* Standalone comment override (hide thread line, no extra margin). */
+.comment.standalone .comment-line { display: none; }
+.comment.standalone { margin-top: 0; }

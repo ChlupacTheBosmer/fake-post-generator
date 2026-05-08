@@ -1,0 +1,11 @@
+# Auto-loaded from ./subreddits.yaml (cwd) or ~/.fake_post_generator/subreddits.yaml.
+# Pass an explicit path with: load_subreddits(Path("examples/subreddits.yaml"))
+r/Python:
+  icon: ./examples/profile_pic.png  # placeholder — swap for a real subreddit icon
+  members: "1.3M"
+  description: News about the Python programming language
+  color: "#4584b6"
+
+r/AskReddit:
+  members: "47.5M"
+  description: The frontpage of the internet

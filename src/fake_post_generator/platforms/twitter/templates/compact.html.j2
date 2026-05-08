@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: {{ page_bg }};
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 20px;
+  }
+  .post-card {
+    width: {{ layout.width }}px;
+    box-sizing: border-box;
+    background: {{ palette.bg }};
+    color: {{ palette.text }};
+    {% if show_border %}border: 1px solid {{ palette.border }};{% endif %}
+    border-radius: 16px;
+    padding: {{ layout.padding or 16 }}px;
+    font-size: {{ (15 * layout.font_scale) | round(2) }}px;
+    line-height: 1.3125;
+  }
+  .header { display: flex; align-items: flex-start; gap: 12px; }
+  .avatar { width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0; object-fit: cover; }
+  .name { font-weight: 700; }
+  .name-row { display: flex; align-items: center; gap: 4px; }
+  .handle { color: {{ palette.subtext }}; font-weight: 400; }
+  .text {
+    margin: 12px 0 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: {{ (17 * layout.font_scale) | round(2) }}px;
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+<div class="post-card">
+  <div class="header">
+    <img class="avatar" src="{{ avatar_uri }}" alt="">
+    <div>
+      <div class="name-row">
+        <span class="name">{{ post.account.name }}</span>
+        {% if verified_html %}{{ verified_html | safe }}{% endif %}
+      </div>
+      <div class="handle">@{{ post.account.handle }}</div>
+    </div>
+  </div>
+  <div class="text">{{ post.text }}</div>
+</div>
+</body>
+</html>

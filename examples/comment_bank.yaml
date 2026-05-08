@@ -1,0 +1,27 @@
+# A user-curated bank of accounts for populating random commenters.
+# Same schema as accounts.yaml. Missing avatars get auto-filled from the
+# bundled default avatar pool.
+red_octopus:
+  name: Red Octopus
+  handle: red_octopus
+  avatar: null
+
+stack_overflow:
+  name: Stack Overflow
+  handle: stack_overflow
+  avatar: null
+
+py_enthusiast:
+  name: Python Enthusiast
+  handle: py_enthusiast
+  avatar: null
+
+debug_demon:
+  name: Debug Demon
+  handle: debug_demon
+  avatar: null
+
+cli_warrior:
+  name: CLI Warrior
+  handle: cli_warrior
+  avatar: null

@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fake-post-generator"
+version = "0.1.0"
+description = "Generate accurate fake social media post images (Twitter/X, Reddit, ...)"
+requires-python = ">=3.10"
+readme = { text = "Generate fake social media post images.", content-type = "text/plain" }
+dependencies = [
+  "jinja2>=3.1",
+  "pillow>=10.0",
+  "pyyaml>=6.0",
+  "requests>=2.31",
+  "playwright>=1.40",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff>=0.5"]
+
+[project.scripts]
+fake-post = "fake_post_generator.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"fake_post_generator" = ["**/*.j2", "**/*.html", "**/*.svg", "**/*.css", "**/*.png"]

@@ -1,0 +1,41 @@
+{% macro render_comment(c, depth=0) %}
+<div class="comment">
+  <div class="comment-row">
+    <div class="comment-line"></div>
+    <div class="comment-col">
+      <div class="comment-head">
+        <img class="comment-avatar" src="{{ avatar_for(c.account) }}" alt="">
+        <span class="comment-author">u/{{ c.account.handle }}</span>
+        {% if c.op %}<span class="op-badge">OP</span>{% endif %}
+        {% if c.timestamp %}<span class="comment-time">· {{ c.timestamp }}</span>{% endif %}
+        {% if c.edited %}<span class="comment-edited">· edited</span>{% endif %}
+      </div>
+      <div class="comment-body">{{ c.body }}</div>
+      <div class="comment-actions">
+        <span class="comment-vote">
+          {{ icon('upvote_outline', 14, palette.icon) | safe }}
+          <span>{{ c.upvotes | humannum }}</span>
+          {{ icon('downvote_outline', 14, palette.icon) | safe }}
+        </span>
+        <span class="comment-action-btn">
+          {{ icon('comment', 14, palette.icon) | safe }}<span>Reply</span>
+        </span>
+        <span class="comment-action-btn">{{ icon('award', 14, palette.icon) | safe }}</span>
+        <span class="comment-action-btn">
+          {{ icon('share', 14, palette.icon) | safe }}<span>Share</span>
+        </span>
+        <span class="comment-action-btn">{{ icon('overflow', 14, palette.icon) | safe }}</span>
+      </div>
+      {% if c.replies %}
+        {% if depth + 1 >= layout.max_nesting_depth %}
+          <div class="continue-thread">Continue this thread →</div>
+        {% else %}
+          <div class="comment-children">
+            {% for child in c.replies %}{{ render_comment(child, depth + 1) }}{% endfor %}
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endmacro %}

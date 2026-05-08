@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: {{ page_bg }};
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 20px;
+  }
+  .post-card {
+    width: {{ layout.width }}px;
+    box-sizing: border-box;
+    background: {{ palette.bg }};
+    color: {{ palette.text }};
+    {% if show_border %}border: 1px solid {{ palette.border }};{% endif %}
+    border-radius: 16px;
+    padding: {{ layout.padding or 16 }}px;
+    font-size: {{ (15 * layout.font_scale) | round(2) }}px;
+    line-height: 1.3125;
+  }
+  /* Top tweet (mirrors full.html.j2) */
+  .header { display: flex; align-items: flex-start; gap: 12px; }
+  .avatar { width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0; object-fit: cover; }
+  .name-row { display: flex; align-items: center; gap: 4px; }
+  .name { font-weight: 700; }
+  .handle { color: {{ palette.subtext }}; font-weight: 400; }
+  .menu { margin-left: auto; color: {{ palette.subtext }}; }
+  .text {
+    margin: 12px 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: {{ (17 * layout.font_scale) | round(2) }}px;
+    line-height: 1.4;
+  }
+  .image-wrap { margin: 8px 0 12px; border-radius: 16px; overflow: hidden; border: 1px solid {{ palette.border }}; }
+  .image-wrap img { display: block; width: 100%; height: auto; }
+  .meta {
+    color: {{ palette.subtext }};
+    font-size: {{ (14 * layout.font_scale) | round(2) }}px;
+    padding: 4px 0 12px;
+    border-bottom: 1px solid {{ palette.border }};
+  }
+  .meta strong { color: {{ palette.text }}; font-weight: 700; }
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 12px 0;
+    color: {{ palette.subtext }};
+    font-size: {{ (13 * layout.font_scale) | round(2) }}px;
+  }
+  .stat { display: flex; align-items: center; gap: 6px; }
+  .stat svg { fill: {{ palette.icon }}; }
+  /* Replies */
+  {% include "_reply_styles.html.j2" %}
+</style>
+</head>
+<body>
+<div class="post-card">
+  <div class="header">
+    <img class="avatar" src="{{ avatar_uri }}" alt="">
+    <div>
+      <div class="name-row">
+        <span class="name">{{ post.account.name }}</span>
+        {% if verified_html %}<span>{{ verified_html | safe }}</span>{% endif %}
+      </div>
+      <div class="handle">@{{ post.account.handle }}</div>
+    </div>
+    <div class="menu">{{ icon('more', 18, palette.subtext) | safe }}</div>
+  </div>
+
+  <div class="text">{{ post.text }}</div>
+
+  {% if post.image_url %}
+  <div class="image-wrap"><img src="{{ post.image_url }}" alt=""></div>
+  {% endif %}
+
+  <div class="meta">
+    {% if post.time %}{{ post.time }}{% endif %}
+    {% if post.time and post.date %} · {% endif %}
+    {% if post.date %}{{ post.date }}{% endif %}
+    {% if post.views %} · <strong>{{ post.views | thousands }}</strong> Views{% endif %}
+  </div>
+
+  <div class="stats">
+    <div class="stat">{{ icon('reply', 18, palette.icon) | safe }}<span>{{ post.replies_count | humannum }}</span></div>
+    <div class="stat">{{ icon('retweet', 18, palette.icon) | safe }}<span>{{ post.retweets | humannum }}</span></div>
+    <div class="stat">{{ icon('like', 18, palette.icon) | safe }}<span>{{ post.likes | humannum }}</span></div>
+    <div class="stat">{{ icon('view', 18, palette.icon) | safe }}<span>{{ post.views | humannum }}</span></div>
+    <div class="stat">{{ icon('bookmark', 18, palette.icon) | safe }}<span>{{ post.bookmarks | humannum if post.bookmarks else "" }}</span></div>
+    <div class="stat">{{ icon('share', 18, palette.icon) | safe }}</div>
+  </div>
+
+  {% from "_reply_macro.html.j2" import render_reply with context %}
+  {% if post.replies %}
+    {% for r in post.replies %}{{ render_reply(r, 0) }}{% endfor %}
+  {% endif %}
+</div>
+</body>
+</html>

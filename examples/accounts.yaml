@@ -1,0 +1,39 @@
+# Each top-level key is the account id. Reference it via:
+#   AccountProfile.load("elon")  or  --account elon
+elon:
+  name: Elon Musk
+  handle: elonmusk
+  avatar: https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/256px-Elon_Musk_Royal_Society_%28crop2%29.jpg
+  verified: blue
+  platform_defaults:
+    twitter:
+      # any TwitterPost field can be a default here
+      views: 1200000
+
+tophet:
+  name: Tophet
+  handle: tophet
+  avatar: ./examples/profile_pic.png
+  verified: blue
+  platform_defaults:
+    twitter:
+      # any TwitterPost field can be a default here
+      views: 100000
+
+tophet_reddit:
+  name: Tophet
+  handle: tophet
+  avatar: ./examples/profile_pic.png
+  verified: null  # Reddit has no verified badge
+  platform_defaults:
+    reddit:
+      subreddit: r/Python
+
+throwaway42:
+  name: throwaway42
+  handle: throwaway42
+  avatar: null
+  verified: null
+  platform_defaults:
+    reddit:
+      subreddit: r/AskReddit

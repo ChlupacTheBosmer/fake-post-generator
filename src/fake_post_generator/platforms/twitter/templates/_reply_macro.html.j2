@@ -1,0 +1,40 @@
+{% macro render_reply(t, depth=0) %}
+{% set indent = depth * 20 %}
+<div class="reply" style="margin-left: {{ indent }}px;">
+  <div class="reply-card">
+    <div class="reply-header">
+      <img class="reply-avatar" src="{{ avatar_for(t.account) }}" alt="">
+      <div class="reply-id">
+        <div class="reply-name-row">
+          <span class="reply-name">{{ t.account.name }}</span>
+          {% set v = verified_for(t.account) %}{% if v %}{{ v | safe }}{% endif %}
+          <span class="reply-handle">@{{ t.account.handle }}</span>
+          {% if t.time %}<span class="reply-dot">·</span><span class="reply-time">{{ t.time }}</span>{% endif %}
+        </div>
+      </div>
+      <span class="reply-menu">{{ icon('more', 16, palette.subtext) | safe }}</span>
+    </div>
+    <div class="reply-text">{{ t.text }}</div>
+    {% if t.image_url %}
+    <div class="reply-image"><img src="{{ t.image_url }}" alt=""></div>
+    {% endif %}
+    {% if layout.reply_variant != 'compact' %}
+    <div class="reply-stats">
+      <div class="stat">{{ icon('reply', 14, palette.icon) | safe }}<span>{{ t.replies_count | humannum }}</span></div>
+      <div class="stat">{{ icon('retweet', 14, palette.icon) | safe }}<span>{{ t.retweets | humannum }}</span></div>
+      <div class="stat">{{ icon('like', 14, palette.icon) | safe }}<span>{{ t.likes | humannum }}</span></div>
+      <div class="stat">{{ icon('view', 14, palette.icon) | safe }}<span>{{ t.views | humannum }}</span></div>
+      <div class="stat">{{ icon('bookmark', 14, palette.icon) | safe }}{% if t.bookmarks %}<span>{{ t.bookmarks | humannum }}</span>{% endif %}</div>
+      <div class="stat">{{ icon('share', 14, palette.icon) | safe }}</div>
+    </div>
+    {% endif %}
+  </div>
+  {% if t.replies %}
+    {% if depth + 1 >= layout.max_nesting_depth %}
+      <div class="continue-thread">Show more replies →</div>
+    {% else %}
+      {% for child in t.replies %}{{ render_reply(child, depth + 1) }}{% endfor %}
+    {% endif %}
+  {% endif %}
+</div>
+{% endmacro %}
