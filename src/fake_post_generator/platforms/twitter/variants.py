@@ -101,6 +101,26 @@ class BadgeVariant(Variant):
         return ctx
 
 
+class ReplyVariant(Variant):
+    """A single tweet styled with the in-thread *reply card* chrome.
+
+    Same data as ``full`` but with the more compact reply look (smaller
+    avatar, name + handle inline, slimmer action bar) — matches how a
+    reply renders inside ``thread_nested`` / ``thread_flat``, but with
+    nothing above or below it. Useful when you want to extract one reply
+    from a thread to use standalone.
+
+    Honors ``LayoutConfig.reply_variant`` — pass ``"compact"`` to drop
+    the action bar and keep only avatar + name + text.
+    """
+
+    name = "reply"
+    template = "reply.html.j2"
+
+    def context(self, post, layout):
+        return _common_context(post, layout)
+
+
 class ThreadNestedVariant(Variant):
     """Top tweet + recursive nested replies. Each reply is rendered with the
     style controlled by ``LayoutConfig.reply_variant`` (``"full"`` by

@@ -9,8 +9,10 @@ you should know enough to make non-trivial changes safely.
 - Python package that renders accurate Twitter/X and Reddit posts as PNGs.
 - One content class per platform (`TwitterPost`, `RedditPost`); `replies:
   list[Self]` represents threading.
-- One `Variant` subclass per visual form (`full`, `compact`, `badge`,
-  `thread`, `comment`, `comment_compact`, `thread_nested`, `thread_flat`).
+- One `Variant` subclass per visual form. Twitter: `full`, `compact`,
+  `badge`, `reply`, `thread_nested`, `thread_flat`. Reddit: `full`,
+  `compact`, `badge`, `thread`, `comment`, `comment_compact`,
+  `thread_nested`, `thread_flat`.
 - Render = Jinja2 → HTML → Playwright headless Chromium → PNG bytes.
 - Avatars are circle-cropped + base64-embedded as data URIs.
 - Validation lives in `Variant.context()` — fails fast before Playwright runs.

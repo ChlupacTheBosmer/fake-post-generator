@@ -39,6 +39,16 @@ def test_twitter_full_html_renders():
     assert b"hello" in out
 
 
+def test_twitter_reply_renders_standalone():
+    plat = get_platform("twitter", renderer=_FakeRenderer())
+    out = plat.render(
+        TwitterPost(text="standalone reply", account=_acc("alice"), likes=99),
+        variant="reply",
+    )
+    assert b"standalone reply" in out
+    assert b"@alice" in out
+
+
 def test_twitter_thread_nested_renders():
     plat = get_platform("twitter", renderer=_FakeRenderer())
     post = TwitterPost(

@@ -30,7 +30,7 @@ registered). The CLI always writes one PNG and exits.
 
 | Flag | Default | Notes |
 |---|---|---|
-| `--variant <name>` | `full` | One of `full`, `compact`, `badge`. (Thread variants aren't exposed to the CLI yet — use the Python API.) |
+| `--variant <name>` | `full` | `full`, `compact`, `badge` (both platforms); `reply` (Twitter only — standalone reply card); `comment`, `comment_compact` (Reddit only — standalone comment). Thread variants aren't exposed to the CLI yet — use the Python API. |
 | `--theme <name>` | `light` | Twitter: `light` / `dim` / `dark`. Reddit: `light` / `dark`. |
 | `--background <value>` | `theme` | `theme` (matching the card), `transparent`, or any CSS color (`"#000"`, `"rgb(...)"`). |
 | `--width <px>` | `600` | Card width in CSS pixels. Final image is `width × scale`. |
@@ -131,6 +131,22 @@ fake-post twitter --account elon \
   --variant badge --background transparent \
   --width 720 --font-scale 1.4 --scale 3 \
   --out badge_9x16.png
+```
+
+### Standalone reply card (Twitter)
+
+```bash
+fake-post twitter --account elon --variant reply \
+  --text "yes, exactly this" --likes 87 --replies 12 --views 2400 \
+  --time "2h" --background transparent --out reply.png
+```
+
+### Standalone comment (Reddit)
+
+```bash
+fake-post reddit --account throwaway42 --variant comment \
+  --text "best post on r/Python this week" --upvotes 420 \
+  --timestamp "2h ago" --background transparent --out comment.png
 ```
 
 ## Exit codes

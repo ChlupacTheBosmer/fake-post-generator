@@ -28,7 +28,14 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="fake-post")
     p.add_argument("platform", choices=available_platforms())
     p.add_argument("--account", required=True, help="account id from accounts.yaml")
-    p.add_argument("--variant", default="full", choices=["full", "compact", "badge"])
+    p.add_argument(
+        "--variant",
+        default="full",
+        choices=["full", "compact", "badge", "reply", "comment", "comment_compact"],
+        help="full / compact / badge work on both. 'reply' is twitter-only "
+             "(standalone reply-card). 'comment' / 'comment_compact' are "
+             "reddit-only (standalone comment).",
+    )
     p.add_argument("--theme", default=None)
     p.add_argument("--background", default="theme")
     p.add_argument("--width", type=int, default=600)

@@ -9,6 +9,7 @@ from .variants import (
     BadgeVariant,
     CompactVariant,
     FullVariant,
+    ReplyVariant,
     ThreadFlatVariant,
     ThreadNestedVariant,
 )
@@ -19,7 +20,8 @@ class TwitterPlatform(Platform):
     """Twitter / X renderer.
 
     Themes: ``light`` (white), ``dim`` (navy), ``dark`` (true-black). Variants:
-    ``full``, ``compact``, ``badge``, ``thread_nested``, ``thread_flat``.
+    ``full``, ``compact``, ``badge``, ``reply``, ``thread_nested``,
+    ``thread_flat``.
     """
 
     name = "twitter"
@@ -27,11 +29,12 @@ class TwitterPlatform(Platform):
     default_theme = "light"
 
     def variants(self) -> dict[str, Variant]:
-        """Return the five Twitter variants keyed by name."""
+        """Return the six Twitter variants keyed by name."""
         return {
             "full": FullVariant(),
             "compact": CompactVariant(),
             "badge": BadgeVariant(),
+            "reply": ReplyVariant(),
             "thread_nested": ThreadNestedVariant(),
             "thread_flat": ThreadFlatVariant(),
         }

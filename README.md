@@ -39,7 +39,7 @@ fonts/CSS/SVG behave exactly as on the web.
 | Capability | Twitter / X | Reddit |
 |---|---|---|
 | Themes | light / dim / dark | light / dark |
-| Variants | full · compact · badge · thread_nested · thread_flat | full · compact · badge · thread · comment · comment_compact · thread_nested · thread_flat |
+| Variants | full · compact · badge · reply · thread_nested · thread_flat | full · compact · badge · thread · comment · comment_compact · thread_nested · thread_flat |
 | Verified badges | blue · gold | n/a |
 | Custom subreddit icons / members / description | n/a | yes (via `subreddits.yaml`) |
 | Threading (replies / comments) | nested + flat | nested + flat |

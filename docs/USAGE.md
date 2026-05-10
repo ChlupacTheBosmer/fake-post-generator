@@ -171,11 +171,20 @@ post = TwitterPost(
 
 | Variant | What it shows |
 |---|---|
-| `full` | Avatar, name, handle, verified, text, image, time/date/views, full action bar |
+| `full` | Top-level tweet card: 48-px avatar, name, handle, verified, text, image, time/date/views, full action bar |
 | `compact` | Avatar, name/handle, text. No metrics |
 | `badge` | Circular avatar + display name + handle. Transparent by default |
+| `reply` | One tweet styled as the in-thread *reply card* (smaller 36-px avatar, inline name + handle, slim action bar). Use this to render a single reply standalone — extracted from a thread for separate use |
 | `thread_nested` | Top tweet + recursive nested replies (each reply rendered as `LayoutConfig.reply_variant`) |
 | `thread_flat` | Top tweet + flat list of all reply descendants |
+
+`reply` honors `LayoutConfig.reply_variant` — pass ``"compact"`` to drop
+the action bar and keep only avatar + name + text:
+
+```python
+post.render(variant="reply",
+            layout=LayoutConfig(theme="dim", reply_variant="compact"))
+```
 
 ```python
 png = post.render(variant="full",   layout=LayoutConfig(theme="dim"))
